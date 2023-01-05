@@ -28,14 +28,13 @@ class UserRepository implements UserPort {
       where: { id: 1 },
     });
 
-    // const userMysql = await this.userRepositoryMySQL.findOne({
-    //   where: {
-    //     id: 1,
-    //   },
-    // });
+    const userMysql = await this.userRepositoryMySQL.findOne({
+      where: {
+        id: 1,
+      },
+    });
 
-    return { ...userPostgres };
-    // return { ...userPostgres, ...userMysql };
+    return { ...userPostgres, ...userMysql };
   }
 }
 
