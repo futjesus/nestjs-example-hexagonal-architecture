@@ -17,6 +17,8 @@ import { DATABASES_CONNECTION } from './database.model';
           username: 'database',
           password: 'database',
           database: 'database',
+          entities: ['**/*.entity.postgres.js'],
+          logging: true,
         };
       },
     }),
@@ -31,6 +33,8 @@ import { DATABASES_CONNECTION } from './database.model';
           username: 'root',
           password: 'database',
           database: 'database',
+          entities: ['**/*.entity.mysql.js'],
+          logging: true,
         };
       },
     }),

@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
 
-import { ControllersConfig } from './adapters/in/controllers';
+import { ControllersConfig } from './adapters/in';
 
-import { AdapterConfig, RepositoryConfig } from './adapters/out';
-import { EntitiesConfig } from './adapters/out/model';
+import {
+  AdapterConfig,
+  RepositoryConfig,
+  EntitiesConfig,
+} from './adapters/out';
+
 import { ApplicationConfig } from './application';
 
 @Module({

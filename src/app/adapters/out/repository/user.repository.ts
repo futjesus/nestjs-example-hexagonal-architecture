@@ -6,8 +6,8 @@ import { DATABASES_CONNECTION } from 'src/shared/database/database.model';
 import { UserPort } from 'src/app/ports/out/user';
 import { User } from 'src/app/domain';
 
-import { UserEntityPostgres } from '../model/user.entity.postgres';
-import { UserEntityMySQL } from '../model/user.entity.mysql';
+import { UserEntityPostgres } from '../entities/user.entity.postgres';
+import { UserEntityMySQL } from '../entities/user.entity.mysql';
 
 @Injectable()
 class UserRepository implements UserPort {
@@ -16,12 +16,11 @@ class UserRepository implements UserPort {
       UserEntityPostgres,
       DATABASES_CONNECTION.POSTGRESQL_CONNECTION,
     )
-    private readonly userRepositoryPostgres: Repository<any>,
-    @InjectRepository(
-      UserEntityMySQL,
-      DATABASES_CONNECTION.POSTGRESQL_CONNECTION,
-    )
-    private readonly userRepositoryMySQL: Repository<any>,
+    private readonly userRepositoryPostgres: Repository<Omit<User, 'age'>>,
+    @InjectRepository(UserEntityMySQL, DATABASES_CONNECTION.MYSQL_CONNECTION)
+    private readonly userRepositoryMySQL: Repository<
+      Omit<User, 'name' | 'lastname'>
+    >,
   ) {}
 
   async findOne(): Promise<User> {
@@ -29,7 +28,14 @@ class UserRepository implements UserPort {
       where: { id: 1 },
     });
 
-    return userPostgres;
+    // const userMysql = await this.userRepositoryMySQL.findOne({
+    //   where: {
+    //     id: 1,
+    //   },
+    // });
+
+    return { ...userPostgres };
+    // return { ...userPostgres, ...userMysql };
   }
 }
 

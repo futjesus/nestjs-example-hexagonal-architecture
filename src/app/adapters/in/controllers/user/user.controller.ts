@@ -9,7 +9,7 @@ class UserController {
   constructor(private readonly userPort: UserPort) {}
 
   @Get('/')
-  async getAllRoutesByDay() {
+  async getUser() {
     try {
       return await this.userPort.get();
     } catch {
